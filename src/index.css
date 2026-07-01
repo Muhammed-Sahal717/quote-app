@@ -7,7 +7,9 @@
 
 /* 1. Style the whole page body */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   background-color: #0c0c0c; /* Sleek dark slate blue background */
   color: #f8fafc; /* Crisp clean white text */
   display: flex;
@@ -37,7 +39,7 @@ h1 {
 }
 
 .quote-text {
-  font-family: 'Georgia', serif; /* Elegant serif font for quotes */
+  font-family: "Georgia", serif; /* Elegant serif font for quotes */
   font-size: 1.25rem;
   line-height: 1.6;
   font-style: italic;
@@ -104,3 +106,58 @@ button:active {
   }
 }
 
+/* 6. Copy Button Styles */
+.copy-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.copy-btn:hover {
+  background-color: #292929; /* Subtle highlight background on hover */
+  transform: none; /* Override standard button scale rules */
+}
+
+/* Specific colors for the icon elements */
+.icon-gray {
+  color: #94a3b8;
+}
+
+.icon-green {
+  color: #22c55e; /* Vibrant success green */
+}
+
+/* 7. Dropdown Select Styles */
+.select-container {
+  margin-bottom: 1.5rem;
+}
+
+select {
+  background-color: #1a1a1a;
+  color: #94a3b8;
+  border: 1px solid #292929;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+select:hover:not(:disabled) {
+  border-color: #f1eb4e; /* Highlights with your yellow accent */
+  color: #f8fafc;
+}
+
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
