@@ -1,37 +1,35 @@
-/* Core variables */
+/* --- Root Variables (Shadcn UI Dark Theme) --- */
 :root {
   --background: #09090b;
-  --foreground: #fafafa;
+  --foreground: #f4f4f5;
+
   --card: #09090b;
-  --card-foreground: #fafafa;
-  --popover: #09090b;
-  --popover-foreground: #fafafa;
-  --primary: #fafafa;
-  --primary-foreground: #18181b;
-  --secondary: #27272a;
-  --secondary-foreground: #fafafa;
+  --card-foreground: #f4f4f5;
+
+  --primary: #f4f4f5;
+  --primary-foreground: #09090b;
+
   --muted: #27272a;
   --muted-foreground: #a1a1aa;
-  --accent: #27272a;
-  --accent-foreground: #fafafa;
-  --destructive: #7f1d1d;
-  --destructive-foreground: #fef2f2;
-  --success: #14532d;
-  --success-foreground: #f0fdf4;
+
   --border: #27272a;
   --input: #27272a;
   --ring: #d4d4d8;
+
+  --accent-yellow: #facc15;
+  --success: #22c55e;
+  --destructive: #ef4444;
+
   --radius: 8px;
 }
 
-/* Reset basic spacing behaviors */
+/* --- Reset & Layout --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 1. Style the whole page body */
 body {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
@@ -42,24 +40,30 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
+  padding: 1rem;
 }
 
-/* 2. Container Card Box */
+/* --- Container Card Box --- */
 .card {
   background-color: var(--card);
-  padding: 2.5rem;
+  padding: 2rem;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 2);
-  max-width: 500px;
-  width: 90%;
+  border-radius: var(--radius);
+  max-width: 480px;
+  width: 100%;
   text-align: center;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.1),
     0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
-/* 3. Typography Styles */
+@media (max-width: 480px) {
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+/* --- Typography Styles --- */
 h1 {
   font-size: 1.5rem;
   font-weight: 600;
@@ -69,22 +73,21 @@ h1 {
 }
 
 .quote-text {
-  font-family: "Georgia", serif;
-  font-size: 1.25rem;
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 400;
   line-height: 1.6;
-  font-style: italic;
-  margin-bottom: 1rem;
-  color: var(--foreground);
+  margin-bottom: 0.75rem;
 }
 
 .quote-author {
-  color: var(--muted-foreground);
   font-size: 0.875rem;
+  color: var(--muted-foreground);
   margin-bottom: 2rem;
   display: block;
 }
 
-/* 4. Interactive Button Styles */
+/* --- Interactive Button Styles --- */
 button {
   background-color: var(--primary);
   color: var(--primary-foreground);
@@ -94,21 +97,23 @@ button {
   font-weight: 500;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 button:hover {
-  background-color: #e4e4e7;
+  opacity: 0.9;
 }
 
 button:active {
-  transform: none;
+  transform: scale(0.98);
 }
 
-/* 5. Loading Spinner Container */
+/* --- Loading Spinner Container --- */
 .spinner-container {
   display: flex;
   flex-direction: column;
@@ -118,14 +123,13 @@ button:active {
   margin-bottom: 1rem;
 }
 
-/* The Spinner Ring */
 .spinner {
   width: 32px;
   height: 32px;
   border: 2px solid var(--muted);
   border-top: 2px solid var(--primary);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.6s linear infinite;
 }
 
 @keyframes spin {
@@ -137,25 +141,21 @@ button:active {
   }
 }
 
-/* 6. Copy Button Styles */
+/* --- Copy Button Styles --- */
 .copy-btn {
   background: none;
   border: none;
   padding: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   margin-bottom: 1rem;
   border-radius: var(--radius);
   cursor: pointer;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease;
+  transition: background-color 0.15s ease;
 }
 
 .copy-btn:hover {
-  background-color: var(--accent);
+  background-color: var(--muted);
 }
 
 .icon-gray {
@@ -163,29 +163,29 @@ button:active {
 }
 
 .icon-green {
-  color: #22c55e;
+  color: var(--success);
 }
 
-/* 7. Dropdown Select Styles */
+/* --- Dropdown Select Styles --- */
 .select-container {
   margin-bottom: 1.5rem;
 }
 
 select {
-  background-color: var(--card);
+  background-color: var(--background);
   color: var(--foreground);
-  border: 1px solid var(--input);
+  border: 1px solid var(--border);
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
   border-radius: var(--radius);
   cursor: pointer;
   outline: none;
   transition: border-color 0.15s ease;
+  width: auto;
 }
 
-select:hover:not(:disabled) {
+select:focus {
   border-color: var(--ring);
-  color: var(--foreground);
 }
 
 select:disabled {
@@ -193,7 +193,7 @@ select:disabled {
   cursor: not-allowed;
 }
 
-/* 8. Author Quiz Game Styles */
+/* --- Author Quiz Game Styles --- */
 .quiz-container {
   margin-top: 1.5rem;
   width: 100%;
@@ -204,7 +204,6 @@ select:disabled {
   color: var(--muted-foreground);
   margin-bottom: 1rem;
   font-weight: 500;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
@@ -215,41 +214,37 @@ select:disabled {
   margin-bottom: 1.5rem;
 }
 
-/* Base style for option items */
 .option-btn {
-  background-color: var(--card);
+  background-color: var(--background);
   color: var(--foreground);
   border: 1px solid var(--border);
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 1rem;
   font-size: 0.875rem;
   font-weight: 400;
   border-radius: var(--radius);
   cursor: pointer;
-  text-align: center;
+  text-align: left;
   transition:
     background-color 0.15s ease,
     border-color 0.15s ease;
 }
 
 .option-btn:hover:not(:disabled) {
-  background-color: var(--accent);
-  border-color: var(--border);
+  background-color: var(--muted);
 }
 
-/* Color states based on correctness */
 .option-btn.correct {
-  background-color: var(--success) !important;
-  border-color: #22c55e !important;
-  color: var(--success-foreground) !important;
+  background-color: rgba(34, 197, 94, 0.1) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
 }
 
 .option-btn.wrong {
-  background-color: var(--destructive) !important;
-  border-color: #ef4444 !important;
-  color: var(--destructive-foreground) !important;
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  border-color: var(--destructive) !important;
+  color: var(--destructive) !important;
 }
 
-/* Dull state for unselected choices once answered */
 .option-btn:disabled:not(.correct):not(.wrong) {
   opacity: 0.3;
   cursor: not-allowed;
