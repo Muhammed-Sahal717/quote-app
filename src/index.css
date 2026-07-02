@@ -161,3 +161,62 @@ select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+/* 8. Author Quiz Game Styles */
+.quiz-container {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.instructions {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Base style for option items */
+.option-btn {
+  background-color: #1a1a1a;
+  color: #f8fafc;
+  border: 1px solid #292929;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: #f1eb4e;
+  background-color: #222;
+}
+
+/* Color states based on correctness */
+.option-btn.correct {
+  background-color: #15803d !important; /* Bold green */
+  border-color: #22c55e !important;
+  color: #ffffff !important;
+}
+
+.option-btn.wrong {
+  background-color: #991b1b !important; /* Bold red */
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* Dull state for unselected choices once answered */
+.option-btn:disabled:not(.correct):not(.wrong) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
