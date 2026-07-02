@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Copy, Check } from "lucide-react";
+import QuoteDisplay from "./QuoteDisplay";
 
 function App() {
   const [quote, setQuote] = useState("Loading your first quote...");
@@ -78,7 +78,7 @@ function App() {
     setIsLoading(false);
   }
 
-  // 5. Dropdown Selection Handler
+  // Dropdown Selection Handler
   async function handleFilterChange(event) {
     const selectedValue = event.target.value;
     setFilterType(selectedValue); // Update our React state tracking variable
@@ -112,7 +112,6 @@ function App() {
     <div className="card">
       <h1>Quote Generator</h1>
 
-      {/* 6. VISUAL DROPDOWN INPUT MENU */}
       <div className="select-container">
         <select
           value={filterType}
@@ -126,27 +125,19 @@ function App() {
         </select>
       </div>
 
-      {/* 4. TERNARY LAYOUT CONDITIONAL SWITCH */}
       {isLoading ? (
         <div className="spinner-container">
           <div className="spinner"></div>
         </div>
       ) : (
-        <div>
-          <p className="quote-text">"{quote}"</p>
-          {author && <span className="quote-author">~ {author}</span>}
-          {/* 4. CONDITIONAL ICON DISPLAY TOGGLE */}
-          <button className="copy-btn" onClick={handleCopyClick}>
-            {isCopied ? (
-              <Check className="icon-green" size={20} />
-            ) : (
-              <Copy className="icon-gray" size={20} />
-            )}
-          </button>
-        </div>
+        <QuoteDisplay
+          text={quote}
+          author={author}
+          copiedStatus={isCopied}
+          onCopy={handleCopyClick}
+        />
       )}
 
-      {/* 5. DYNAMIC BUTTON TEXT & DISABLED ATTRIBUTE */}
       <button onClick={handleButtonClick} disabled={isLoading}>
         {isLoading ? "Loading..." : "Get New Quote"}
       </button>
