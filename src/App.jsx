@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import QuoteDisplay from "./QuoteDisplay";
 import AuthorQuiz from "./AuthorQuiz"; // Import our new quiz template component
 
@@ -90,15 +90,18 @@ function App() {
     return combined.sort(() => Math.random() - 0.5);
   }
 
-  // Orchestrator function to prepare a clean round of the game
-  function setupNewRound(selectedQuote, selectedAuthor, poolData) {
-    setQuote(selectedQuote);
-    setAuthor(selectedAuthor);
-    setSelectedAnswer(null); // Clear previous selection
+  // Wrap this function in useCallback so it maintains a stable reference in memory
+  const setupNewRound = useCallback(
+    (selectedQuote, selectedAuthor, poolData) => {
+      setQuote(selectedQuote);
+      setAuthor(selectedAuthor);
+      setSelectedAnswer(null);
 
-    const generatedChoices = generateOptions(selectedAuthor, poolData);
-    setOptions(generatedChoices);
-  }
+      const generatedChoices = generateOptions(selectedAuthor, poolData);
+      setOptions(generatedChoices);
+    },
+    [],
+  ); // Empty brackets mean this function reference never changes
 
   useEffect(() => {
     let isMounted = true;
@@ -122,7 +125,7 @@ function App() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [setupNewRound]);
 
   async function handleButtonClick() {
     setIsLoading(true);
