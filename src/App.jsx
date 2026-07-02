@@ -30,6 +30,7 @@ function App() {
           data = await response.json();
         }
 
+        // Determine quote length and whether it matches the selected filter
         const textLength = data.quote.length;
         let matchesFilter = false;
 
@@ -73,19 +74,24 @@ function App() {
   }
 
   function generateOptions(correctAuthor, fullPool) {
+    // Collect other authors from the pool excluding the correct one
     const otherAuthors = fullPool
       .map((q) => q.author)
       .filter((auth) => auth !== correctAuthor);
 
-    const wrongChoices = [];
+    // Pick up to three unique wrong authors at random
+    const wrongChoices = []; // accumulator for wrong author choices
     while (wrongChoices.length < 3 && otherAuthors.length > 0) {
-      const randomIndex = Math.floor(Math.random() * otherAuthors.length);
-      const randomAuthor = otherAuthors.splice(randomIndex, 1)[0];
+      // stop when we have 3 or pool is empty
+      const randomIndex = Math.floor(Math.random() * otherAuthors.length); // select random index
+      const randomAuthor = otherAuthors.splice(randomIndex, 1)[0]; // remove and retrieve author at index
       if (!wrongChoices.includes(randomAuthor)) {
-        wrongChoices.push(randomAuthor);
+        // ensure uniqueness
+        wrongChoices.push(randomAuthor); // add chosen author to wrongChoices
       }
     }
 
+    // Combine correct answer with wrong choices and shuffle
     const combined = [correctAuthor, ...wrongChoices];
     return combined.sort(() => Math.random() - 0.5);
   }
@@ -104,6 +110,7 @@ function App() {
   ); // Empty brackets mean this function reference never changes
 
   useEffect(() => {
+    // Use a mounted flag to avoid updating state after unmount
     let isMounted = true;
 
     async function loadInitialData() {
@@ -114,6 +121,7 @@ function App() {
       // 2. Extract a random starter item matching our parameters
       const result = await getRandomQuote("all", sharedPool);
 
+      // Only update state if the component is still mounted
       if (isMounted && sharedPool.length > 0) {
         setupNewRound(result.quote, result.author, sharedPool);
         setIsLoading(false);
@@ -128,6 +136,7 @@ function App() {
   }, [setupNewRound]);
 
   async function handleButtonClick() {
+    // Fetch a new quote for the current filter and update the UI
     setIsLoading(true);
     setIsCopied(false);
     const result = await getRandomQuote(filterType, allQuotes);
@@ -136,6 +145,7 @@ function App() {
   }
 
   async function handleFilterChange(event) {
+    // Update filter type and immediately load a quote matching it
     const selectedValue = event.target.value;
     setFilterType(selectedValue);
     setIsLoading(true);
@@ -147,6 +157,7 @@ function App() {
   }
 
   async function handleCopyClick() {
+    // Copy the current quote and author to the clipboard
     if (!quote) return;
     try {
       await navigator.clipboard.writeText(`"${quote}" ~ ${author}`);
@@ -159,6 +170,7 @@ function App() {
 
   // Handler passed down to child component to intercept choice selections
   function handleSelectAnswer(chosenAuthor) {
+    // Record which author the user selected
     setSelectedAnswer(chosenAuthor);
   }
 
@@ -188,9 +200,10 @@ function App() {
           {/* Note: We pass an empty string to author here to hide the answer inside QuoteDisplay */}
           <QuoteDisplay
             text={quote}
-            author=""
+            author={author}
             copiedStatus={isCopied}
             onCopy={handleCopyClick}
+            gameFinished={selectedAnswer != null}
           />
 
           {/* Render our interactive multiple choice engine */}

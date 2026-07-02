@@ -4,21 +4,22 @@ function AuthorQuiz({
   selectedAnswer,
   onSelectAnswer,
 }) {
+  // Render multiple-choice options and highlight correct/wrong selections
   return (
     <div className="quiz-container">
       <p className="instructions">Guess the Author:</p>
 
       <div className="options-grid">
         {options.map((option, index) => {
-          // 1. Calculate the dynamic visual state classes for this button
+          // Calculate dynamic classes and disabled state for option buttons
           let btnClass = "option-btn";
           const isAnswered = selectedAnswer !== null;
 
           if (isAnswered) {
             if (option === correctAuthor) {
-              btnClass += " correct"; // Highlight true answer green
+              btnClass += " correct"; // correct answer highlighted
             } else if (option === selectedAnswer) {
-              btnClass += " wrong"; // Highlight clicked false answer red
+              btnClass += " wrong"; // user's wrong choice highlighted
             }
           }
 
@@ -27,7 +28,7 @@ function AuthorQuiz({
               key={index}
               className={btnClass}
               onClick={() => onSelectAnswer(option)}
-              disabled={isAnswered} // Freeze input once answered
+              disabled={isAnswered} // freeze input once answered
             >
               {option}
             </button>

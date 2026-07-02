@@ -12,13 +12,15 @@ function QuoteDisplay({ text, author, copiedStatus, onCopy, gameFinished }) {
       )}
 
       {/* We can even pass down functions like click handlers through props! */}
-      <button className="copy-btn" onClick={onCopy}>
-        {copiedStatus ? (
-          <Check className="icon-green" size={20} />
-        ) : (
-          <Copy className="icon-gray" size={20} />
-        )}
-      </button>
+      {gameFinished && (
+        <button className="copy-btn" onClick={onCopy}>
+          {copiedStatus ? (
+            <Check className="icon-green" size={20} />
+          ) : (
+            <Copy className="icon-gray" size={20} />
+          )}
+        </button>
+      )}
     </div>
   );
 }
